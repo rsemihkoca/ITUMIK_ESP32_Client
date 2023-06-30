@@ -1,18 +1,26 @@
 import subprocess
 import os
 
+def clean_path(path):
+    return os.path.normpath(path).replace("\\","/")
+
 def get_file(port, remote_file, local_file):
-    command = f"ampy --port {port} get {remote_file} {local_file}"
+    command = f'ampy --port {port} get "{clean_path(remote_file)}" "{clean_path(local_file)}"'
+
+
     process = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     _, stderr = process.communicate()
     if process.returncode != 0:
         # If an error occurred, treat this as a directory
+
         return False
     print(f'Saved file: {local_file}')
     return True
 
 def get_files_in_directory(port, directory, local_dir=""):
-    command = f"ampy --port {port} ls {directory}"
+    command = f'ampy --port {port} ls "{clean_path(directory)}"'
+
+
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
     while True:
