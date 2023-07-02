@@ -22,8 +22,13 @@ class MQTTSubscriber:
         #print("Received message on topic: {}".format(topic, msg))
 
     def connect(self):
-        self.client.connect()
-        print('Connected to MQTT Broker: ' + secrets["cluster_url"])
+        try:
+            self.client.connect()
+        except Exception:
+            print("connect_error")
+            raise Exception
+        else:
+            print('Connected to MQTT Broker: ' + secrets["cluster_url"])
     
     def subscribe(self):
         self.client.subscribe(self.topic)

@@ -6,7 +6,9 @@ import ubinascii
 import machine
 import network
 from machine import Pin
-
+import random
+from ucollections import OrderedDict
+import json
 
 import gc
 gc.collect()
@@ -41,6 +43,21 @@ subscriber = MQTTSubscriber(
 # Connect, run, and disconnect
 subscriber.connect()
 subscriber.subscribe()
+print("Subscribed to: ", secrets["topic"])
+
+
+def calculate_occupancy(distance1,distance2):
+
+    if distance1<0 or distance2<0:
+        return False
+    
+    elif distance1<=50 or distance2<=50:
+        return True
+
+    else:
+        return False
+
+
 
 while True:
     distance1 = sensor1.distance_cm()
@@ -50,19 +67,22 @@ while True:
     
     print('sensor y Distance:', distance2, 'cm')
     print("")
-    
-    
-    message = dict()
-    message["x distance(cm)"] = distance1
-    message["y distance(cm)"] = distance2
     subscriber.client.check_msg()
 
-    subscriber.publish(str(message))
+
+    message = OrderedDict()
+    message["Chair001"] = calculate_occupancy(distance1, distance2)
+    message["Chair002"] = calculate_occupancy(random.randint(0, 150), random.randint(0, 150))
+    message["Chair003"] = calculate_occupancy(random.randint(0, 150), random.randint(0, 150))
+    message["Chair004"] = calculate_occupancy(random.randint(0, 150), random.randint(0, 150))
+    json_data = json.dumps(message)
+
+    print(json_data)
+    subscriber.publish(json_data)
     sleep(1)
 
-subscriber.disconnect()
 
-    
+
 
 
 

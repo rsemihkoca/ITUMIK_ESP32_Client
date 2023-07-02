@@ -11,6 +11,7 @@ wifi_ssid = "your_wifi_ssid"
 wifi_password = "your_wifi_password"
 
 
+
 # Instantiate the WiFiManager and MQTTSubscriber classes
 wifi_manager = WiFiManager(wifi_ssid, wifi_password)
 
