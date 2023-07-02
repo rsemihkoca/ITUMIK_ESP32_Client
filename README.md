@@ -8,7 +8,7 @@ The reason for doing it this way is to reduce the setup cost as the number of cl
 
 get_copy.py uses ampy and --port /dev/ttyUSB0 to copy all files and folders in ESP32 to the directory it resides in.
 ***Caution: If you want to edit the code, make sure you don't make the root directory ("/") your own computer. Otherwise you will overwrite the "lib" folder in ESP32 to "lib" in your root directory.
-
+also send copy sends all files in src to ESP32's root directory. Make sure you you cloned your work in ESP32.
 HiveMQ Cloud Broker Credentials Generation for ESP32
 https://colab.research.google.com/drive/1FQKwWunu_sDNsPV7wvlnp-U9CZSh2kyD#scrollTo=BUH75bq5CHu5
 
