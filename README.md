@@ -1,4 +1,4 @@
-# ITUMIK_ESP32_Client
+# ITUMIK_esp32
 * The data received from the distance sensors is processed and sent to the HiveMQ broker. 
 * Added semi-OTA support with ugit:(coming soon)
 * On every reboot the source code is retrieved from the github repository (coming soon)
